@@ -18,7 +18,7 @@ public interface Edge<A, V extends Vertex<A>> {
     /**
      * 此边的另一个顶点，注意"this"顶点是隐含自明的，这里是指此边的另一个"other"顶点
      */
-    public V getOtherNode();
+    public V getOtherVertex();
 
     /**
      * 边的权重值
