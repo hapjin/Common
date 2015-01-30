@@ -14,6 +14,7 @@ package org.langzhaozhi.util;
  * @param <T>
  */
 public final class IntHash<T> {
+    private static final int SLACK_POWER_VALUE = 3;//一个松弛变量,含义是2的3次方的倒数即8分之一
     private int mCount;
     private int mMod;
 
@@ -57,7 +58,8 @@ public final class IntHash<T> {
                 return old;
             }
         }
-        if (this.mCount == entrys.length) {
+        //如果超过8分之一了的松弛度了就重新hash,否则hash冲突过于频繁会降低存取效率
+        if (this.mCount - (this.mCount >>> IntHash.SLACK_POWER_VALUE) >= entrys.length) {
             this.rehash();
             return this.put( aKey, aValue );
         }
